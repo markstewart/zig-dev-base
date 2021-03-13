@@ -3,12 +3,12 @@
 # Image variants linked from this page:
 # https://github.com/microsoft/vscode-dev-containers/tree/master/containers/cpp
 
-ARG VARIANT="focal"
-FROM mcr.microsoft.com/vscode/devcontainers/cpp:0-${VARIANT}
+FROM mcr.microsoft.com/vscode/devcontainers/cpp:0-focal AS base
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends libxml2-dev zlib1g-dev
 
+FROM base as builder
 COPY build/get-llvm.sh .
 RUN ./get-llvm.sh
 
@@ -17,4 +17,7 @@ RUN ./build-zig.sh
 
 COPY build/build-zls.sh .
 RUN ./build-zls.sh
+
+FROM base
+COPY --from=builder /root/.local/bin/zig /root/zls/zig-cache/bin/zls /usr/local/bin/
 
