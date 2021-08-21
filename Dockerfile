@@ -19,6 +19,7 @@ COPY build/build-zls.sh .
 RUN ./build-zls.sh
 
 FROM base
-COPY --from=builder /root/.local/bin/zig /root/zls/zig-cache/bin/zls /usr/local/bin/
+COPY --from=builder /root/.local/bin/zig /root/zls/zig-out/bin/zls /usr/local/bin/
 COPY --from=builder /root/.local/lib/zig /usr/local/lib/
+COPY --from=builder /etc/zls.json /etc/zls.json
 

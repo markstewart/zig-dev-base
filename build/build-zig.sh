@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -xe
 
 # cat << EOF >> /etc/apt/sources.list
 # deb http://apt.llvm.org/focal/ llvm-toolchain-focal-12 main
