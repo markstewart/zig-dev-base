@@ -6,7 +6,7 @@
 FROM mcr.microsoft.com/vscode/devcontainers/cpp:0-focal AS base
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends libxml2-dev zlib1g-dev
+    && apt-get -y install --no-install-recommends libxml2-dev zlib1g-dev libncurses5
 
 FROM base as builder
 COPY build/get-llvm.sh .
